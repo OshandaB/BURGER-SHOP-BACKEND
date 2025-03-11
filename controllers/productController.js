@@ -4,9 +4,29 @@ export const getProducts = async (req, res) => {
   res.json(products);
 };
 export const createProduct = async (req, res) => {
-  const newProduct = new Product(req.body);
-  await newProduct.save();
-  res.json({ message: 'Product added successfully' });
+  try {
+    const { name, description, price, category, ingredients, calories, protein, carbs, fat } = req.body;
+    const image = req.file ? req.file.filename : null; // Image filename from multer
+
+    // Create a new product with the provided details
+    const newProduct = new Product({
+      name,
+      price,
+      description,
+      image, // Add image filename
+     
+      category,
+      ingredients,
+      calories,
+      protein,
+      carbs,
+      fat,
+    });
+    await newProduct.save();
+    res.status(201).json({ message: 'Product added successfully', product: newProduct });
+  } catch (error) {
+    res.status(500).json({ message: 'Error creating product', error: error.message });
+  }
 };
 export const updateProduct = async (req, res) => {
   await Product.findByIdAndUpdate(req.params.id, req.body);

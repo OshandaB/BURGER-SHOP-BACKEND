@@ -4,7 +4,12 @@ const ProductSchema = new mongoose.Schema({
     price: Number,
     description: String,
     image: String,
-    stock: Number,
-    category: String
+    stock: { type: String, default: 'In Stock' },
+    category: String,
+    ingredients: String,
+    calories: String,
+    protein: String,
+    carbs: String,
+    fat:String,
   });
   export default mongoose.model('Product', ProductSchema);
