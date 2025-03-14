@@ -6,6 +6,9 @@ import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js';
 import orderRoutes from './routes/orderRoutes.js';
 import cartRoutes from './routes/cartRoutes.js';
+import paymentRoutes from './routes/paymentRoutes.js';
+import webhookRoutes from './routes/stripeWebhookRoutes.js';
+
 import path from 'path';
 
 dotenv.config();
@@ -23,6 +26,8 @@ connectDB();
 app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1/products', productRoutes);
 app.use('/api/v1/orders', orderRoutes);
+app.use('/api/v1/create-checkout-session', paymentRoutes);
+
 app.use('/api/v1/cart', cartRoutes);
 
 const PORT = process.env.PORT || 5000;
