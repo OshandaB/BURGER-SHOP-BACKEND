@@ -73,7 +73,6 @@ export const getCart = async (req, res) => {
 };
 // clear cart items
 export const clearCart = async (req, res) => {
-  console.log("hdsjhd")
   const userId = req.user.userId;
 
   try {

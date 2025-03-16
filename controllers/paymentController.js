@@ -24,6 +24,15 @@ export const createCheckoutSession = async (req, res) => {
     mode: 'payment',
     success_url: `${process.env.CLIENT_URL}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
     cancel_url: `${process.env.CLIENT_URL}/checkout`,
+    metadata: {
+      userId: orderData.userId,
+      customerName: orderData.customerName,
+      customerEmail: orderData.customerEmail,
+      customerPhone: orderData.customerPhone,
+      address: JSON.stringify(orderData.address),
+      items: JSON.stringify(orderData.items),
+      total: total.toString(),
+    },
   });
   const counter = await Counter.findByIdAndUpdate(
     { _id: 'id' }, // Unique identifier for product counter
@@ -33,7 +42,7 @@ export const createCheckoutSession = async (req, res) => {
   const newOrder = new Order({
     id: counter.seq,
     userId: orderData.userId,
-    items,
+    items: orderData.items,
     total,
     customerName: orderData.customerName,
     customerEmail: orderData.customerEmail,

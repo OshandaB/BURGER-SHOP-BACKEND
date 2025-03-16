@@ -13,5 +13,7 @@ const ProductSchema = new mongoose.Schema({
     protein: String,
     carbs: String,
     fat:String,
+    createdAt: { type: Date, default: Date.now },
+
   });
   export default mongoose.model('Product', ProductSchema);

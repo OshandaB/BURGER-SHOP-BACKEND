@@ -1,6 +1,8 @@
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
+import Counter from '../util/counter.js';
+
 export const register = async (req, res) => {
   const { username, email, password,role } = req.body;
   const existingUser = await User.findOne({ email });

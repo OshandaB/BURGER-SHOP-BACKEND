@@ -2,8 +2,13 @@ import Product from '../models/Product.js';
 import Counter from '../util/counter.js';
 
 export const getProducts = async (req, res) => {
-  const products = await Product.find();
-  res.json(products);
+  try {
+    const products = await Product.find().sort({ createdAt: -1 });
+    res.json(products);
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    res.status(500).json({ message: 'Error fetching products' });
+  }
 };
 export const getSingleProduct = async (req,res) => {
   try {
